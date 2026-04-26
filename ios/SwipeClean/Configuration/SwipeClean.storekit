@@ -1,0 +1,95 @@
+{
+  "identifier" : "SwipeClean",
+  "nonConsumableProducts" : [
+
+  ],
+  "consumableProducts" : [
+
+  ],
+  "nonRenewingSubscriptions" : [
+    {
+      "adHocOffers" : [
+
+      ],
+      "displayPrice" : "4.99",
+      "internalID" : "A1B2C3D4-0001-0001-0001-000000000001",
+      "localizations" : [
+        {
+          "description" : "Clean your whole library without limits for 7 days. No subscription.",
+          "displayName" : "Big Cleanup Pack",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "app.swipeclean.bigcleanup",
+      "referenceName" : "Big Cleanup Pack",
+      "type" : "NonRenewingSubscription"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "A1B2C3D4-0002-0002-0002-000000000002",
+      "localizations" : [
+
+      ],
+      "name" : "Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "A1B2C3D4-0003-0003-0003-000000000003",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited swipes, AI album filing, and advanced duplicate grouping.",
+              "displayName" : "SwipeClean Pro Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "app.swipeclean.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Pro Monthly",
+          "subscriptionGroupID" : "A1B2C3D4-0002-0002-0002-000000000002",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "19.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "A1B2C3D4-0004-0004-0004-000000000004",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited swipes, AI album filing, and advanced duplicate grouping.",
+              "displayName" : "SwipeClean Pro Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "app.swipeclean.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Pro Yearly",
+          "subscriptionGroupID" : "A1B2C3D4-0002-0002-0002-000000000002",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
