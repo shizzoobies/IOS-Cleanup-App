@@ -2,7 +2,7 @@
 //  SwipeCleanApp.swift
 //  SwipeClean
 //
-//  App entry point. Sets up SwiftData container, shared services, and root view.
+//  App entry point. Sets up SwiftData container, AppServices, and root view.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ import SwiftData
 struct SwipeCleanApp: App {
 
     let modelContainer: ModelContainer
-    @State private var services = AppServices()
+    @State private var appServices = AppServices()
 
     init() {
         do {
@@ -29,9 +29,10 @@ struct SwipeCleanApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(services: services)
+            RootView()
+                .environment(appServices)
                 .task {
-                    await services.store.loadProducts()
+                    await appServices.store.loadProducts()
                 }
         }
         .modelContainer(modelContainer)

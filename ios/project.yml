@@ -9,7 +9,7 @@ options:
   developmentLanguage: en
 
 fileGroups:
-  - SwipeClean.storekit
+  - SwipeClean/Configuration/SwipeClean.storekit
 
 settings:
   base:
@@ -74,10 +74,10 @@ schemes:
         SwipeClean: all
     run:
       config: Debug
-      storeKitConfiguration: SwipeClean.storekit
+      storeKitConfiguration: SwipeClean/Configuration/SwipeClean.storekit
     test:
       config: Debug
-      storeKitConfiguration: SwipeClean.storekit
+      storeKitConfiguration: SwipeClean/Configuration/SwipeClean.storekit
     profile:
       config: Release
     analyze:
