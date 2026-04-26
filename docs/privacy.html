@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwipeClean Privacy Policy</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1c1c1e;
+      background: #f2f2f7;
+      padding: 24px 16px 64px;
+    }
+    .card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      padding: 40px 40px 48px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #007aff;
+      margin-bottom: 4px;
+    }
+    .tagline {
+      font-size: 14px;
+      color: #8e8e93;
+      margin-bottom: 32px;
+    }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .updated { font-size: 13px; color: #8e8e93; margin-bottom: 36px; }
+    h2 {
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #8e8e93;
+      margin-top: 36px;
+      margin-bottom: 10px;
+    }
+    p { margin-bottom: 14px; }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 6px; }
+    .pill {
+      display: inline-block;
+      background: #e8f4ff;
+      color: #007aff;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 20px;
+      padding: 2px 10px;
+      margin-right: 4px;
+    }
+    a { color: #007aff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    hr { border: none; border-top: 1px solid #e5e5ea; margin: 32px 0; }
+    @media (max-width: 600px) {
+      .card { padding: 28px 20px 40px; border-radius: 0; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #1c1c1e; color: #f2f2f7; }
+      .card { background: #2c2c2e; box-shadow: none; }
+      h2 { color: #8e8e93; }
+      .pill { background: #1c3a5e; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">SwipeClean</div>
+    <div class="tagline">Swipe right to keep. Swipe left to delete.</div>
+
+    <h1>Privacy Policy</h1>
+    <div class="updated">Effective April 26, 2026</div>
+
+    <p>SwipeClean is built on a simple principle: your photos belong to you. This policy explains exactly what data the app collects, why, and how you stay in control.</p>
+
+    <h2>What stays on your device</h2>
+    <p>The following analysis is performed entirely on-device using Apple's Vision framework and Core Image. <strong>None of this data ever leaves your iPhone or iPad.</strong></p>
+    <ul>
+      <li><span class="pill">On-device</span> Duplicate detection via perceptual hashing</li>
+      <li><span class="pill">On-device</span> Blur and focus quality scoring</li>
+      <li><span class="pill">On-device</span> Screenshot identification</li>
+      <li><span class="pill">On-device</span> Large-file flagging</li>
+      <li><span class="pill">On-device</span> Basic text recognition (OCR) for receipt categorization</li>
+      <li><span class="pill">On-device</span> Swipe decisions and deletion queue</li>
+    </ul>
+
+    <h2>What leaves your device (and how it is protected)</h2>
+    <p>For AI-powered summaries and album suggestions, SwipeClean sends a <strong>small compressed thumbnail</strong> to our backend proxy. Originals never leave your device. Every thumbnail is:</p>
+    <ul>
+      <li>Resized to a maximum of 512 pixels on the long edge</li>
+      <li>Compressed to JPEG quality 70%</li>
+      <li>Stripped of all EXIF metadata, including GPS location, by default</li>
+      <li>Face regions blurred using on-device face detection, by default</li>
+    </ul>
+    <p>The thumbnail is sent over HTTPS to our Cloudflare Workers proxy, which forwards it to Anthropic's Claude API to generate a plain-English description and album suggestion. <strong>The proxy is stateless -- thumbnails are processed and immediately discarded. Nothing is stored on our servers.</strong></p>
+
+    <h2>Opt-in features</h2>
+    <p>Two privacy-sensitive features are <strong>off by default</strong> and require your explicit opt-in in Settings:</p>
+    <ul>
+      <li><strong>Face-aware analysis</strong> -- sends thumbnails with faces visible so Claude can describe people and expressions. Off by default; faces are blurred before upload unless you enable this.</li>
+      <li><strong>Location-aware filing</strong> -- includes the photo's location metadata in the album-suggestion prompt (e.g., "Paris 2024"). Off by default; GPS data is stripped before upload unless you enable this.</li>
+    </ul>
+
+    <h2>Anonymous analytics</h2>
+    <p>SwipeClean includes an optional, fully anonymous analytics system. It is <strong>off by default</strong>. If you opt in, it collects aggregate usage events (e.g., "user swiped", "category opened") with no photos, no identifiers, and no personal data. You can toggle this at any time in Settings.</p>
+
+    <h2>Purchases</h2>
+    <p>In-app purchases are handled entirely by Apple's StoreKit framework. SwipeClean does not see, store, or transmit your payment information. Purchase receipts are verified client-side using StoreKit 2's signed transaction model.</p>
+
+    <h2>Third-party services</h2>
+    <ul>
+      <li><strong>Anthropic (Claude API)</strong> -- Receives compressed, sanitized thumbnails for AI analysis. Anthropic's data usage is governed by their <a href="https://www.anthropic.com/legal/privacy" target="_blank">Privacy Policy</a>.</li>
+      <li><strong>Cloudflare Workers</strong> -- Hosts our stateless proxy. No data is stored. Cloudflare's practices are described in their <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Privacy Policy</a>.</li>
+      <li><strong>Apple StoreKit</strong> -- Handles all in-app purchases. Apple's practices are described in their <a href="https://www.apple.com/legal/privacy/" target="_blank">Privacy Policy</a>.</li>
+    </ul>
+
+    <h2>Data retention</h2>
+    <p>SwipeClean stores analysis results in a local SwiftData database on your device to avoid re-analyzing the same photos. This cache lives entirely on your device and is deleted when you delete the app. Our backend proxy retains nothing.</p>
+
+    <h2>Children</h2>
+    <p>SwipeClean is not directed at children under 13 and we do not knowingly collect any personal information from children.</p>
+
+    <h2>Your rights</h2>
+    <p>You can revoke SwipeClean's photo library access at any time in <strong>iOS Settings &gt; Privacy &amp; Security &gt; Photos</strong>. All on-device data is deleted when you uninstall the app.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy as the app evolves. The "Effective" date at the top of this page reflects the most recent revision. Significant changes will be noted in the App Store release notes.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? Email us at <a href="mailto:asoalexander@gmail.com">asoalexander@gmail.com</a>.</p>
+
+    <hr />
+    <p style="font-size:13px;color:#8e8e93;">SwipeClean is an independent app. Apple is not responsible for the content of this privacy policy.</p>
+  </div>
+</body>
+</html>

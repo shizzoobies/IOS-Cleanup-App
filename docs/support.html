@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwipeClean Support</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1c1c1e;
+      background: #f2f2f7;
+      padding: 24px 16px 64px;
+    }
+    .card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      padding: 40px 40px 48px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .logo { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: #007aff; margin-bottom: 4px; }
+    .tagline { font-size: 14px; color: #8e8e93; margin-bottom: 32px; }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+    h2 { font-size: 17px; font-weight: 600; margin-top: 32px; margin-bottom: 8px; }
+    p { margin-bottom: 14px; }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 8px; }
+    a { color: #007aff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .faq-item {
+      border: 1px solid #e5e5ea;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+    .faq-q { font-weight: 600; margin-bottom: 6px; }
+    .faq-a { color: #3a3a3c; font-size: 15px; margin: 0; }
+    .cta {
+      display: inline-block;
+      background: #007aff;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 12px;
+      padding: 12px 24px;
+      margin-top: 8px;
+    }
+    .cta:hover { background: #0066d6; text-decoration: none; }
+    hr { border: none; border-top: 1px solid #e5e5ea; margin: 32px 0; }
+    @media (max-width: 600px) {
+      .card { padding: 28px 20px 40px; border-radius: 0; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #1c1c1e; color: #f2f2f7; }
+      .card { background: #2c2c2e; box-shadow: none; }
+      .faq-item { border-color: #3a3a3c; }
+      .faq-a { color: #aeaeb2; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">SwipeClean</div>
+    <div class="tagline">Swipe right to keep. Swipe left to delete.</div>
+
+    <h1>Support</h1>
+
+    <p>Having an issue or a question? We respond to every email, usually within 24 hours.</p>
+    <a class="cta" href="mailto:asoalexander@gmail.com">Email Support</a>
+
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Are my photos uploaded to the internet?</div>
+      <p class="faq-a">Originals never leave your device. For AI analysis, SwipeClean sends a small compressed thumbnail (max 512px, JPEG 70%) to our backend. The thumbnail is processed immediately and discarded -- nothing is stored on our servers. Faces are blurred and GPS data is stripped before upload, by default.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">I accidentally deleted a photo. Can I get it back?</div>
+      <p class="faq-a">Yes. SwipeClean never permanently deletes photos. Deleted photos move to your iPhone's Recently Deleted album, where they stay for 30 days. Open the Photos app, go to Albums &gt; Recently Deleted, and recover anything you want.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I restore my Pro subscription on a new device?</div>
+      <p class="faq-a">Open SwipeClean, tap the Upgrade button, then tap "Restore purchases" at the bottom of the paywall. Make sure you are signed into the same Apple ID you used for the original purchase.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I cancel my subscription?</div>
+      <p class="faq-a">Open iOS Settings &gt; Apple ID (your name at the top) &gt; Subscriptions &gt; SwipeClean Pro. Tap Cancel Subscription. You keep Pro access until the end of the current billing period.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What is the Big Cleanup Pack?</div>
+      <p class="faq-a">The Big Cleanup Pack is a one-time purchase that gives you unlimited swipes for 7 days -- no subscription, no auto-renewal. Great if you just want to do one big cleanup without committing to a subscription.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">The app says "Could not load library." What do I do?</div>
+      <p class="faq-a">SwipeClean needs access to your photo library. Go to iOS Settings &gt; Privacy &amp; Security &gt; Photos &gt; SwipeClean and choose "Full Access." Then reopen the app.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">I hit my 50 free swipes. When do they reset?</div>
+      <p class="faq-a">Free swipes reset every day at midnight. If you need more right away, you can upgrade to Pro for unlimited swipes, or grab the Big Cleanup Pack for a 7-day unlimited pass.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How does duplicate detection work?</div>
+      <p class="faq-a">SwipeClean uses on-device perceptual hashing to find visually similar photos. This works entirely on your device -- no photos are uploaded for duplicate detection. It catches near-duplicates like burst shots and slight crops, not just exact copies.</p>
+    </div>
+
+    <hr />
+    <p style="font-size:13px;color:#8e8e93;">
+      SwipeClean &bull; <a href="privacy.html">Privacy Policy</a> &bull; <a href="mailto:asoalexander@gmail.com">asoalexander@gmail.com</a>
+    </p>
+  </div>
+</body>
+</html>
