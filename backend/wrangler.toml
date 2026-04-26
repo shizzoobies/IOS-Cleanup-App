@@ -8,11 +8,11 @@ compatibility_flags = ["nodejs_compat"]
 #                  wrangler kv:namespace create RATE_LIMITS
 [[kv_namespaces]]
 binding = "CACHE"
-id = "REPLACE_WITH_YOUR_CACHE_NAMESPACE_ID"
+id = "9035c16bd757468fb42bf57d39ad41b7"
 
 [[kv_namespaces]]
 binding = "RATE_LIMITS"
-id = "REPLACE_WITH_YOUR_RATE_LIMITS_NAMESPACE_ID"
+id = "702cc9cbf55c44a68b101dd5848757a6"
 
 # Anthropic API key. Set via: wrangler secret put ANTHROPIC_API_KEY
 # Do not commit secrets.
