@@ -1,0 +1,23 @@
+name = "swipeclean-proxy"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Bind two KV namespaces: one for response caching, one for rate limiting.
+# Create them with: wrangler kv:namespace create CACHE
+#                  wrangler kv:namespace create RATE_LIMITS
+[[kv_namespaces]]
+binding = "CACHE"
+id = "REPLACE_WITH_YOUR_CACHE_NAMESPACE_ID"
+
+[[kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "REPLACE_WITH_YOUR_RATE_LIMITS_NAMESPACE_ID"
+
+# Anthropic API key. Set via: wrangler secret put ANTHROPIC_API_KEY
+# Do not commit secrets.
+
+[vars]
+ENVIRONMENT = "development"
+HAIKU_MODEL = "claude-haiku-4-5"
+SONNET_MODEL = "claude-sonnet-4-6"

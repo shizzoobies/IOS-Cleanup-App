@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>SwipeClean needs access to your photo library so you can review and clean up your photos. Originals never leave your device, only blurred thumbnails are sent for AI analysis.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>SwipeClean needs to add photos to albums when you choose to file them.</string>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>SwipeClean uses Documents access only for folders you explicitly pick to declutter.</string>
+    <key>UIBackgroundModes</key>
+    <array/>
+    <key>UILaunchScreen</key>
+    <dict/>
+</dict>
+</plist>
