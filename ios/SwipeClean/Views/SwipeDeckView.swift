@@ -44,12 +44,17 @@ struct SwipeDeckView: View {
 
     let category: QueueCategory
     @State var viewModel: SwipeDeckViewModel
+    let services: AppServices
 
     @State private var dragOffset: CGSize = .zero
     @State private var flyingOff: SwipeDirection? = nil
     @State private var showInspect = false
     @State private var showWhyGrouped = false
+    @State private var showPaywall = false
+    @State private var didLoadQueue = false
+    @State private var queueLoadError: String?
 
+    private let freeSwipeLimit = 50
     private let swipeThreshold: CGFloat = 100
     private let velocityThreshold: CGFloat = 300
 
@@ -83,7 +88,14 @@ struct SwipeDeckView: View {
             titleVisibility: .visible
         ) {
             Button("Delete", role: .destructive) {
-                Task { try? await viewModel.confirmBatchDeletion() }
+                Task {
+                    do {
+                        try await viewModel.confirmBatchDeletion()
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    } catch {
+                        UINotificationFeedbackGenerator().notificationOccurred(.error)
+                    }
+                }
             }
             Button("Keep in tray", role: .cancel) {
                 viewModel.checkpointReached = false
@@ -93,11 +105,37 @@ struct SwipeDeckView: View {
         }
         .sheet(isPresented: $showInspect) {
             if let top = viewModel.queue.first {
-                InspectView(assetId: top.asset.id)
+                InspectView(
+                    asset: top.asset,
+                    analysis: top.analysis,
+                    fullResImageLoader: makeFullResLoader(for: top.asset)
+                )
             }
         }
         .sheet(isPresented: $showWhyGrouped) {
             whyGroupedPanel
+        }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView(store: services.store)
+        }
+        .task {
+            await loadQueueIfNeeded()
+        }
+    }
+
+    private func makeFullResLoader(for asset: Asset) -> () async -> UIImage? {
+        let library = services.photoLibrary
+        return { await library.fetchFullImage(for: asset) }
+    }
+
+    private func loadQueueIfNeeded() async {
+        guard !didLoadQueue else { return }
+        didLoadQueue = true
+        do {
+            let assets = try await services.queueBuilder.buildQueue(for: category)
+            await viewModel.load(assets)
+        } catch {
+            queueLoadError = error.localizedDescription
         }
     }
 
@@ -190,6 +228,18 @@ struct SwipeDeckView: View {
 
     private func commitSwipe(_ direction: SwipeDirection) {
         guard let topCard = viewModel.queue.first else { return }
+
+        if !services.store.isPro && viewModel.swipeCount >= freeSwipeLimit {
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            showPaywall = true
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                dragOffset = .zero
+            }
+            flyingOff = nil
+            return
+        }
+
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
         flyingOff = direction
         dragOffset = direction.flyOffset
@@ -286,6 +336,7 @@ struct SwipeDeckView: View {
                 if let top = viewModel.queue.first { commitSwipe(.left) }
             }
             actionButton(systemName: "arrow.uturn.backward", color: .gray) {
+                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 Task { await viewModel.undo() }
             }
             actionButton(systemName: "arrow.up", color: .blue) {
@@ -323,7 +374,14 @@ struct SwipeDeckView: View {
                 .multilineTextAlignment(.center)
             if !viewModel.pendingDeletions.isEmpty {
                 Button("Delete \(viewModel.pendingDeletions.count) queued photos") {
-                    Task { try? await viewModel.confirmBatchDeletion() }
+                    Task {
+                        do {
+                            try await viewModel.confirmBatchDeletion()
+                            UINotificationFeedbackGenerator().notificationOccurred(.success)
+                        } catch {
+                            UINotificationFeedbackGenerator().notificationOccurred(.error)
+                        }
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)

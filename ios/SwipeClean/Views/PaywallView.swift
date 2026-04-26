@@ -129,7 +129,10 @@ struct PaywallView: View {
         let annualCostOfMonthly = monthly.price * 12
         guard annualCostOfMonthly > yearly.price else { return "Billed annually." }
         let savings = annualCostOfMonthly - yearly.price
-        let pct = Int((savings / annualCostOfMonthly * 100).rounded())
+        let savingsDouble = NSDecimalNumber(decimal: savings).doubleValue
+        let totalDouble = NSDecimalNumber(decimal: annualCostOfMonthly).doubleValue
+        guard totalDouble > 0 else { return "Billed annually." }
+        let pct = Int((savingsDouble / totalDouble * 100).rounded())
         return "Save \(pct)% vs monthly. Billed annually."
     }
 }

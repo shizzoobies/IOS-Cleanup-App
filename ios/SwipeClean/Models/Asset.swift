@@ -41,3 +41,31 @@ struct Asset: Identifiable, Hashable {
         }
     }
 }
+
+extension Asset {
+    init(phAsset: PHAsset) {
+        let isScreenshot = phAsset.mediaSubtypes.contains(.photoScreenshot)
+        let type: AssetType = {
+            switch phAsset.mediaType {
+            case .video: return .video
+            case .image: return isScreenshot ? .screenshot : .photo
+            default: return .other
+            }
+        }()
+        let dimensions: CGSize? = (phAsset.pixelWidth > 0 && phAsset.pixelHeight > 0)
+            ? CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight)
+            : nil
+        let duration: Double? = phAsset.mediaType == .video ? phAsset.duration : nil
+
+        self.init(
+            id: phAsset.localIdentifier,
+            source: .photoLibrary(localIdentifier: phAsset.localIdentifier),
+            type: type,
+            createdAt: phAsset.creationDate,
+            byteSize: 0,
+            dimensions: dimensions,
+            durationSeconds: duration,
+            isScreenshot: isScreenshot
+        )
+    }
+}

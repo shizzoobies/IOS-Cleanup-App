@@ -1,0 +1,86 @@
+name: SwipeClean
+options:
+  bundleIdPrefix: app.swipeclean
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+  groupSortPosition: top
+  developmentLanguage: en
+
+fileGroups:
+  - SwipeClean.storekit
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    ENABLE_MODULE_VERIFIER: NO
+
+targets:
+  SwipeClean:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: SwipeClean
+        excludes:
+          - "Resources/Info.plist"
+          - "Resources/PrivacyInfo.xcprivacy"
+      - path: SwipeClean/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    info:
+      path: SwipeClean/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: SwipeClean
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        UILaunchScreen:
+          UIColorName: ""
+        UIRequiredDeviceCapabilities:
+          - armv7
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSPhotoLibraryUsageDescription: "SwipeClean needs access to your photo library so you can review and clean up your photos. Originals never leave your device, only blurred thumbnails are sent for AI analysis."
+        NSPhotoLibraryAddUsageDescription: "SwipeClean needs to add photos to albums when you choose to file them."
+        NSDocumentsFolderUsageDescription: "SwipeClean uses Documents access only for folders you explicitly pick to declutter."
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.swipeclean
+        PRODUCT_NAME: SwipeClean
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: "0.1.0"
+        SUPPORTS_MACCATALYST: NO
+        ENABLE_PREVIEWS: YES
+    dependencies: []
+
+schemes:
+  SwipeClean:
+    build:
+      targets:
+        SwipeClean: all
+    run:
+      config: Debug
+      storeKitConfiguration: SwipeClean.storekit
+    test:
+      config: Debug
+      storeKitConfiguration: SwipeClean.storekit
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

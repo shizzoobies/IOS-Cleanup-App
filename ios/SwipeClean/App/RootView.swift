@@ -9,11 +9,13 @@ import SwiftUI
 
 struct RootView: View {
 
+    let services: AppServices
+
     @AppStorage("didCompleteOnboarding") private var didCompleteOnboarding = false
 
     var body: some View {
         if didCompleteOnboarding {
-            QueueSelectionView()
+            QueueSelectionView(services: services)
         } else {
             OnboardingView()
         }

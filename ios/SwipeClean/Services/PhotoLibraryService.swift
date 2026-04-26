@@ -5,12 +5,11 @@
 //  Wraps PhotoKit. Permission handling, asset enumeration, thumbnail loading,
 //  album CRUD, and batch deletion.
 //
-//  TODO(phase1): full implementation.
-//
 
 import Foundation
 import Photos
 import UIKit
+import os.log
 
 protocol PhotoLibraryServicing: AnyObject {
     func requestAuthorization() async -> PHAuthorizationStatus
@@ -26,6 +25,9 @@ protocol PhotoLibraryServicing: AnyObject {
 
 final class PhotoLibraryService: PhotoLibraryServicing {
 
+    private static let logger = Logger(subsystem: "app.swipeclean", category: "PhotoLibraryService")
+    private let imageManager = PHImageManager.default()
+
     func requestAuthorization() async -> PHAuthorizationStatus {
         await PHPhotoLibrary.requestAuthorization(for: .readWrite)
     }
@@ -35,18 +37,63 @@ final class PhotoLibraryService: PhotoLibraryServicing {
     }
 
     func fetchAllAssets() async -> [Asset] {
-        // TODO(phase1): implement with PHFetchOptions, paginate as needed.
-        return []
+        await Task.detached(priority: .userInitiated) {
+            let options = PHFetchOptions()
+            options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            options.includeHiddenAssets = false
+            let result = PHAsset.fetchAssets(with: options)
+            var assets: [Asset] = []
+            assets.reserveCapacity(result.count)
+            result.enumerateObjects { phAsset, _, _ in
+                assets.append(Asset(phAsset: phAsset))
+            }
+            Self.logger.log("fetchAllAssets returned \(assets.count, privacy: .public) assets")
+            return assets
+        }.value
     }
 
     func fetchThumbnail(for asset: Asset, targetSize: CGSize) async -> UIImage? {
-        // TODO(phase1): use PHImageManager.requestImage with .opportunistic.
-        return nil
+        guard case .photoLibrary(let localId) = asset.source else { return nil }
+        let identified = PHAsset.fetchAssets(withLocalIdentifiers: [localId], options: nil)
+        guard let phAsset = identified.firstObject else { return nil }
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .fast
+        options.isNetworkAccessAllowed = true
+        options.isSynchronous = false
+        let manager = imageManager
+        return await withCheckedContinuation { (continuation: CheckedContinuation<UIImage?, Never>) in
+            manager.requestImage(
+                for: phAsset,
+                targetSize: targetSize,
+                contentMode: .aspectFill,
+                options: options
+            ) { image, _ in
+                continuation.resume(returning: image)
+            }
+        }
     }
 
     func fetchFullImage(for asset: Asset) async -> UIImage? {
-        // TODO(phase7): full-res for inspect mode.
-        return nil
+        guard case .photoLibrary(let localId) = asset.source else { return nil }
+        let identified = PHAsset.fetchAssets(withLocalIdentifiers: [localId], options: nil)
+        guard let phAsset = identified.firstObject else { return nil }
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .none
+        options.isNetworkAccessAllowed = true
+        options.isSynchronous = false
+        let manager = imageManager
+        return await withCheckedContinuation { (continuation: CheckedContinuation<UIImage?, Never>) in
+            manager.requestImage(
+                for: phAsset,
+                targetSize: PHImageManagerMaximumSize,
+                contentMode: .default,
+                options: options
+            ) { image, _ in
+                continuation.resume(returning: image)
+            }
+        }
     }
 
     func listAlbums() async -> [String] {
