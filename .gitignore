@@ -14,6 +14,9 @@ Package.resolved
 node_modules/
 .wrangler/
 .dev.vars
+
+# OMC / Claude Code internal state
+.omc/
 .env
 .env.local
 
